@@ -1,0 +1,55 @@
+extends ../layout/index
+
+block contenido 
+    div(class="py-10")
+        h1(class="text-4xl my-10 font-extrabold text-center") Bienes
+            span(class="font-normal") &nbsp;Raíces
+        h2(class="text-center text-2xl font-extrabold")= pagina
+
+    div(class="bg-white shadow-md py-8 px-4 rounded-sm mx-auto max-w-4xl my-10 md:px-10")
+        form(action="" class="space-y-2") 
+            div(class="space-y-8")
+                h3(class="text-lg leading-6 font-medium text-slate-700") Información General
+                p(class="text-slate-600") Añade información sobre la propiedad en venta
+
+                div
+                    label(class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="titulo") Titulo del Anuncio
+                    input(id="titulo" class="w-full px-3 py-2 border-2 border-gray-400 rounded-md duration-300 placeholder:text-gray-400 outline-none focus:ring focus:ring-gray-400" placeholder="Tutulo de la Propiedad: ej. Casa con Playa" type="text" name="titulo") 
+
+                div(class="md:flex md:gap-4 space-y-5 md:space-y-0")
+
+                    div(class="md:w-1/2")
+                        label(class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="categoria") Categoria
+                        select(id="categoria" class="w-full px-3 py-2 border-2 border-gray-400 rounded-md duration-300 placeholder:text-gray-400 outline-none focus:ring focus:ring-gray-400" name="categoria") 
+                            option(value="") - Categoria 
+                            
+                    div(class="md:w-1/2")
+                        label(class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="precio") Precio
+                        select(id="precio" class="w-full px-3 py-2 border-2 border-gray-400 rounded-md duration-300 placeholder:text-gray-400 outline-none focus:ring focus:ring-gray-400" name="precio") 
+                            option(value="") - Precio
+
+                div(class="md:flex md:gap-4 space-y-5 md:space-y-0")
+
+                    div(class="md:w-1/3")
+                        label(class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="habitaciones") No. Habitaciones
+                        select(id="habitaciones" class="w-full px-3 py-2 border-2 border-gray-400 rounded-md duration-300 placeholder:text-gray-400 outline-none focus:ring focus:ring-gray-400" name="habitaciones") 
+                            option(value="") - No. Habitaciones
+                            - var n = 1; // - Cuando le ponemos un -, le estamos diciendo que lo trate como código JavaScript
+                                while n < 5
+                                    option(value=n) #{ n++ }
+                            
+                    div(class="md:w-1/3")
+                        label(class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="estacionamiento") Estacionamiento
+                        select(id="estacionamiento" class="w-full px-3 py-2 border-2 border-gray-400 rounded-md duration-300 placeholder:text-gray-400 outline-none focus:ring focus:ring-gray-400" name="estacionamiento") 
+                            option(value="") - No. Estacionamiento
+                            - var n = 1;
+                                while n < 5
+                                    option(value=n) #{ n++ } 
+
+                    div(class="md:w-1/3")
+                        label(class="block text-sm uppercase text-gray-500 mb-2 font-bold" for="wc") Baños
+                        select(id="wc" class="w-full px-3 py-2 border-2 border-gray-400 rounded-md duration-300 placeholder:text-gray-400 outline-none focus:ring focus:ring-gray-400" name="wc") 
+                            option(value="") - No. Baños
+                            - var n = 1;
+                                while n < 5
+                                    option(value=n) #{ n++ } 

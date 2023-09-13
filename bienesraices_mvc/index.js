@@ -6,6 +6,8 @@ import csrf from "csurf";
 import cookieParser from "cookie-parser";
 // Archivo de js, por tanto requiere la extensión.
 import usuarioRouter from "./routes/usuarioRoutes.js";
+// Mis propiedades
+import propiedadesRoutes from "./routes/propiedadesRoutes.js";
 // Base de Datos
 import db from "./config/db.js";
 
@@ -38,6 +40,7 @@ server.use( express.static('public') )
 
 // Routing -> Mandamos a llamar la ruta
 server.use( '/auth', usuarioRouter )
+server.use( '/', propiedadesRoutes )
 
 // Creamos el server o la app -> Levantamos el servidor
 const port = process.env.PORT || 3000;
