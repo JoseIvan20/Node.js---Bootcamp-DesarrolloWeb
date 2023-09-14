@@ -4,16 +4,15 @@ import { exit } from "node:process";
 import db from "../config/db.js";
 
         // Categorias
-// Importamos el Seeder 
+// Importamos el Seeder de Categorias
 import seedCategorias from "./seedCategorias.js";
-// Importamos el Modelo 
-import Categoria from "../models/ModelCategoria.js";
 
         // Precios
 // Importamos el Seeder de Precios
 import seedPrecios from "./seedPrecios.js";
-// Importamos el Modelo 
-import Precio from "../models/ModelPrecio.js";
+
+// Importamos las Asociaciones
+import { Categoria, Precio } from "../models/asociaciones.js";
 
 const importarDatos = async () => {
 
