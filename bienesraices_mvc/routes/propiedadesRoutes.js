@@ -2,11 +2,12 @@ import express from "express"
 // Importamos express-validator, usamos body, ya que lo hacemos desde el routing
 import { body } from "express-validator"
 import { admin, crear, guardar } from "../controller/propiedadController.js";
+import protegerRuta from "../middleware/protegerRutas.js";
 
 const router = express.Router();
 
 
-router.get('/mis-propiedades', admin);
+router.get('/mis-propiedades', protegerRuta, admin);
 // Crear propiedad
 router.get('/propiedades/crear', crear)
 // POST para extraer los valores
