@@ -1,8 +1,9 @@
 // Función que se invoca así misma
 (function() {
 
-    const lat = 19.5575357; // Latitud
-    const lng = -99.1246216; // Longitud
+    // Leeremos los datos que extraigamos del PIN u posición en el mapa
+    const lat = document.querySelector('#lat').value || 19.5575357; // Latitud
+    const lng = document.querySelector('#lng').value || -99.1246216; // Longitud
     const mapa = L.map('mapa').setView([lat, lng ], 16);
     
     // Crear variable para añadir un PIN con laubicación de la Propiedad

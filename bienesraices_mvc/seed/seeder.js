@@ -11,8 +11,11 @@ import seedCategorias from "./seedCategorias.js";
 // Importamos el Seeder de Precios
 import seedPrecios from "./seedPrecios.js";
 
+        // Usuarios
+import seedUsuarios from "./seedUsuarios.js";
+
 // Importamos las Asociaciones
-import { Categoria, Precio } from "../models/asociaciones.js";
+import { Categoria, Precio, Usuario } from "../models/asociaciones.js";
 
 const importarDatos = async () => {
 
@@ -28,7 +31,8 @@ const importarDatos = async () => {
         await Promise.all([
 
             Categoria.bulkCreate(seedCategorias), // bulkCreate() -> Inserta todos los datos que le pasamos a las categorias
-            Precio.bulkCreate(seedPrecios)
+            Precio.bulkCreate(seedPrecios),
+            Usuario.bulkCreate(seedUsuarios)
         ])
 
         // Mensaje de Confiemación con SweetAlert2

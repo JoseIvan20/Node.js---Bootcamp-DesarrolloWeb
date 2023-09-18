@@ -15,7 +15,7 @@ router.post('/propiedades/crear',
     // Creamos las validaciones
     body('titulo').notEmpty().withMessage('El Titulo del Anuncio es Obligatorio'),
     body('descripcion')
-        .notEmpty().withMessage('La Descripción no puede ir vacìa')
+        .notEmpty().withMessage('La Descripción no puede ir vacía')
         .isLength( { max: 200 } ).withMessage('La Descripción es muy larga'),
     body('categoria').isNumeric().withMessage('Selecciona una Categoria'),
     body('precio').isNumeric().withMessage('Selecciona un Precio'),
