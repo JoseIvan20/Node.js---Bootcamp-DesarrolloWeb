@@ -9,10 +9,10 @@ const router = express.Router();
 
 router.get('/mis-propiedades', protegerRuta, admin);
 // Crear propiedad
-router.get('/propiedades/crear', crear)
+router.get('/propiedades/crear', protegerRuta, crear)
 // POST para extraer los valores
 router.post('/propiedades/crear', 
-
+    protegerRuta,
     // Creamos las validaciones
     body('titulo').notEmpty().withMessage('El Titulo del Anuncio es Obligatorio'),
     body('descripcion')

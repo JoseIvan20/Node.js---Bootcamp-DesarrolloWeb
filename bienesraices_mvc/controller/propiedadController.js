@@ -61,7 +61,9 @@ const guardar = async (req, res) => {
     }
 
     // Bloque de Crear Registro
-    const { titulo, descripcion, habitaciones, estacionamiento, wc, calle, lat, lng, precio: precioId, categoria: categoriaId, usuario: usuarioId } = req.body;
+    const { titulo, descripcion, habitaciones, estacionamiento, wc, calle, lat, lng, precio: precioId, categoria: categoriaId } = req.body;
+
+    const { id: usuarioId } = req.usuario;
 
     try {
         
@@ -77,9 +79,16 @@ const guardar = async (req, res) => {
             lat,
             lng,
             precioId,
-            categoriaId
+            categoriaId,
+            usuarioId,
+            imagen: ''
 
         })
+
+        // Usaremos la información de propiedadGuardada para extraer la información
+        const { id } = propiedadGuardada;
+
+        res.redirect(`/propiedades/agregar-imagen/${id}`)
 
     } catch (error) {
         console.log(error);
