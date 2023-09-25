@@ -1,7 +1,7 @@
 import express from "express"
 // Importamos express-validator, usamos body, ya que lo hacemos desde el routing
 import { body } from "express-validator"
-import { admin, crear, guardar } from "../controller/propiedadController.js";
+import { admin, crear, guardar, agregarImagen } from "../controller/propiedadController.js";
 import protegerRuta from "../middleware/protegerRutas.js";
 
 const router = express.Router();
@@ -28,5 +28,13 @@ router.post('/propiedades/crear',
     guardar
 
 );
+
+// Agregamos la URL de propiedades/agregar-imagen/
+router.get('/propiedades/agregar-imagen/:id', 
+
+    protegerRuta,
+
+    agregarImagen
+)
 
 export default router;

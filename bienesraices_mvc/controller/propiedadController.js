@@ -4,8 +4,7 @@ import { Precio, Categoria, Propiedad } from "../models/asociaciones.js";
 
 const admin = (req, res) => {
     res.render('propiedades/admin', {
-        pagina: 'Mis propiedades',
-        barra: true
+        pagina: 'Mis propiedades'
     })
 }
 
@@ -22,7 +21,6 @@ const crear = async (req, res) => {
 
     res.render('propiedades/crear', {
         pagina: 'Crear Propiedad',
-        barra: true,
         csrfToken: req.csrfToken(),
         // Pasamos los valores de los modelos en objetos
         categorias,
@@ -49,7 +47,6 @@ const guardar = async (req, res) => {
 
         return res.render('propiedades/crear', {
             pagina: 'Crear Propiedad',
-            barra: true,
             csrfToken: req.csrfToken(),
             // Pasamos los valores de los modelos en objetos
             categorias,
@@ -96,8 +93,44 @@ const guardar = async (req, res) => {
 
 }
 
+// Función de agregar imagen
+const agregarImagen = async (req, res) => {
+
+    const { id } = req.params; 
+
+    // Validar que la propiedad exista
+    const propiedad = await Propiedad.findByPk(id);
+
+    if (!propiedad) {
+        return res.redirect('/mis-propiedades')
+    }
+    
+    // Validar que la propiedad no este publicada 
+    if (propiedad.publicado) {
+        return res.rendirect('/mis-propiedades')
+    }
+    
+    // Validar que la propiedad pertence a quien visita está página
+    if( req.usuario.id.toString() !== propiedad.usuarioId.toString() ){
+
+        return res.redirect('/mis-propiedades')
+
+    }else {
+
+    }
+
+
+    res.render('propiedades/agregar-imagen', {
+        // Creamos la vista
+        pagina: `Agregar Imagen: ${propiedad.titulo}`, // L e proporcionamos el titulo que le hemos dado a la propiedad
+        propiedad
+    })
+
+}
+
 export {
     admin,
     crear,
-    guardar
+    guardar,
+    agregarImagen,
 }

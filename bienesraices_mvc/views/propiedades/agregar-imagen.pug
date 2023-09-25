@@ -1,0 +1,23 @@
+extends ../layout/admin
+
+//- Estilos para los mapas
+block styles 
+    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css")
+
+block contenido 
+    div(class="py-10")
+        h1(class="text-4xl my-10 font-extrabold text-center") Bienes
+            span(class="font-normal") &nbsp;Raíces
+        h2(class="text-center text-2xl font-extrabold")= pagina
+
+    div(class="bg-white shadow-xl py-8 px-4 rounded-sm mx-auto max-w-4xl my-10 md:px-10")
+        form(action=`/propiedades/agregar-imagen/${propiedad.id}` method="POST" class="space-y-2 dropzone border-dashed border-2 w-full min:h-96 h-auto rounded flex-col justify-center items-center" id="imagen") 
+            input(type="hidden" name="_csrf" value=csrfToken)
+
+        div(class="flex justify-center")
+            input(type="submit" class="duration-200 bg-slate-600 hover:bg-slate-800 hover:shadow-md rounded-md text-white font-bold cursor-pointer py-3 px-7" value="Publicar Propiedad")
+
+//- scripts de ubicación en Maps 
+block scripts 
+    script(src="/js/agregarImagen.js") 
