@@ -37,4 +37,8 @@ router.get('/propiedades/agregar-imagen/:id',
     agregarImagen
 )
 
+router.post('/propiedades/agregar-imagen/:id', (req, res) => {
+    console.log("Subiendo Imagen...")
+})
+
 export default router;

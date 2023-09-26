@@ -2,8 +2,8 @@ extends ../layout/admin
 
 //- Estilos para los mapas
 block styles 
-    link(rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css")
     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/dropzone/5.9.3/dropzone.css")
+    meta(name="csrf-token" content=csrfToken)
 
 block contenido 
     div(class="py-10")
