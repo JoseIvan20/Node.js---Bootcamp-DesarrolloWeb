@@ -2,9 +2,31 @@ import { validationResult } from "express-validator";
 // Importamos los Modelos
 import { Precio, Categoria, Propiedad } from "../models/asociaciones.js";
 
-const admin = (req, res) => {
+const admin = async (req, res) => {
+
+    const { id } = req.usuario
+
+    const propiedades = await Propiedad.findAll( { 
+
+        where: {
+            usuarioId : id
+        },
+        include: [ // Para cruzar información y jalar información
+        
+                                // as => Alías
+            { model: Categoria, as: 'categoria' }, // Le decimos, incluye en este query el modelo de categorias
+
+            { model: Precio, as: 'precio' }
+
+        ]
+
+     } )
+
     res.render('propiedades/admin', {
-        pagina: 'Mis propiedades'
+
+        pagina: 'Mis propiedades',
+        propiedades
+
     })
 }
 
@@ -101,21 +123,19 @@ const agregarImagen = async (req, res) => {
     // Validar que la propiedad exista
     const propiedad = await Propiedad.findByPk(id);
 
-    if (!propiedad) {
+    if (!propiedad ) {
         return res.redirect('/mis-propiedades')
     }
     
     // Validar que la propiedad no este publicada 
-    if (propiedad.publicado) {
-        return res.rendirect('/mis-propiedades')
+    if ( propiedad.publicado ) {
+        return res.redirect('/mis-propiedades')
     }
     
     // Validar que la propiedad pertence a quien visita está página
     if( req.usuario.id.toString() !== propiedad.usuarioId.toString() ){
 
         return res.redirect('/mis-propiedades')
-
-    }else {
 
     }
 
@@ -129,9 +149,58 @@ const agregarImagen = async (req, res) => {
 
 }
 
+// Creamos una función para almacenar la imagen
+const almacenarImagen = async(req, res, next) => {
+
+    const { id } = req.params; 
+
+    // Validar que la propiedad exista
+    const propiedad = await Propiedad.findByPk(id);
+
+    if (!propiedad ) {
+        return res.redirect('/mis-propiedades')
+    }
+    
+    // Validar que la propiedad no este publicada 
+    if ( propiedad.publicado ) {
+        return res.redirect('/mis-propiedades')
+    }
+    
+    // Validar que la propiedad pertence a quien visita está página
+    if( req.usuario.id.toString() !== propiedad.usuarioId.toString() ){
+
+        return res.redirect('/mis-propiedades')
+
+    }
+    
+    // Usamos un trycatch en caso de error
+    try {
+        
+        console.log(req.file) // req.file lo registra multer
+
+        // Almacenar la imagen y publicar la propiedad
+        propiedad.imagen = req.file.filename
+
+        // Cambiamos de 0 a 1 al ser guardada la imagen
+        propiedad.publicado = 1;
+
+        // Almacenamos en la BD
+        await propiedad.save()
+
+        next()
+
+    } catch (error) {
+
+        console.log(error)
+
+    }
+
+}
+
 export {
     admin,
     crear,
     guardar,
     agregarImagen,
+    almacenarImagen,
 }

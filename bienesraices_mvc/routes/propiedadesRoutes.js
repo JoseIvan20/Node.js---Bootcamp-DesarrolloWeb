@@ -1,8 +1,11 @@
 import express from "express"
 // Importamos express-validator, usamos body, ya que lo hacemos desde el routing
 import { body } from "express-validator"
-import { admin, crear, guardar, agregarImagen } from "../controller/propiedadController.js";
+import { admin, crear, guardar, agregarImagen, almacenarImagen } from "../controller/propiedadController.js";
 import protegerRuta from "../middleware/protegerRutas.js";
+// Importamos upload
+import upload from "../middleware/subirImagen.js";
+
 
 const router = express.Router();
 
@@ -37,8 +40,14 @@ router.get('/propiedades/agregar-imagen/:id',
     agregarImagen
 )
 
-router.post('/propiedades/agregar-imagen/:id', (req, res) => {
-    console.log("Subiendo Imagen...")
-})
+router.post('/propiedades/agregar-imagen/:id',
+
+    protegerRuta, // Solo usuarios autenticados pueden enviar una petición hacía esta URL
+    // Use array debido a que son múltiples imagenes, si fuese solo 1, sería single. upload.single()
+    upload.single( 'imagen' ), // Dentro del parentésis, viene lo que lo conecta
+
+    almacenarImagen
+
+)
 
 export default router;
