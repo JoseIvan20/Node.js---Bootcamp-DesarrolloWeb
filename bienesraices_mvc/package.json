@@ -36,7 +36,7 @@
     "nodemailer": "^6.9.4",
     "pug": "^3.0.2",
     "sequelize": "^6.32.1",
-    "sweetalert2": "^11.7.27"
+    "sweetalert2": "^11.7.31"
   },
   "devDependencies": {
     "autoprefixer": "^10.4.15",

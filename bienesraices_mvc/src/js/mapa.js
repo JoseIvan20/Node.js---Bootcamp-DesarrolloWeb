@@ -16,7 +16,7 @@
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(mapa);
 
-    // Eñ PIN
+    // El PIN
     marker = new L.marker([lat, lng], {
         draggable: true, // True para poder moverlo
         autoPan:true, //True para hacer zoom automático cuando el usuario arrastre el pin a otra parte del mapa
