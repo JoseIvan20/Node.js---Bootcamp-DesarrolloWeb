@@ -6,31 +6,80 @@ import { unlink } from "node:fs/promises"
 
 const admin = async (req, res) => {
 
-    const { id } = req.usuario
+    // Leer Query String 
+    // La renombramos como paginaActual parta evitar que afecte a las variables o parámetros de 'pagina'
+    const { pagina: paginaActual } = req.query; 
+    const expresion = /^[1-9]$/ // -> Expresiones regulares
+                                // -> ^: Le índica que debe iniciar si o si con...  
+                                // -> $: Le decimos que debe finalizar con...
+    // Validación
+    if ( !expresion.test(paginaActual) ) { // test() nos va retornar true o false
+        return res.redirect('/mis-propiedades?pagina=1')
+    }
 
-    const propiedades = await Propiedad.findAll( { 
+    try {
 
-        where: {
-            usuarioId : id
-        },
-        include: [ // Para cruzar información y jalar información
-        
-                                // as => Alías
-            { model: Categoria, as: 'categoria' }, // Le decimos, incluye en este query el modelo de categorias
+        const { id } = req.usuario
 
-            { model: Precio, as: 'precio' }
+        // Límites y Offset para el paginador
+        const limit = 5 // Páginaremos de 10 en 10 / Yo lo haré con 5
+        const offset = ((paginaActual * limit) - limit )
 
-        ]
+        const [ propiedades, total ] = await Promise.all( [
 
-     } )
+            await Propiedad.findAll( { 
+
+                limit,
+    
+                offset, // Lo que hará es traerse los primeros 10 registros
+    
+                where: {
+                    usuarioId : id
+                },
+                include: [ // Para cruzar información y jalar información
+                
+                                        // as => Alías
+                    { model: Categoria, as: 'categoria' }, // Le decimos, incluye en este query el modelo de categorias
+    
+                    { model: Precio, as: 'precio' }
+    
+                ]
+    
+            } ),
+            // Con esto tomamos la cantidad total de las propiedades
+            Propiedad.count( {
+
+                where: {
+
+                    usuarioId: id
+
+                }
+
+            } )
+
+        ] )
 
     res.render('propiedades/admin', {
 
         pagina: 'Mis propiedades',
         propiedades,
-        csrfToken: req.csrfToken()
+        csrfToken: req.csrfToken(),
+        // Añadimos el paginador:
+        paginas: Math.ceil( total / limit ),
+        // Que nos retorne el número de la página en la que nos encontramos 
+        paginaActual: Number(paginaActual),
+        // Que registro de cuàl a cuàl estamos mostrando
+        total,
+        offset,
+        limit
 
     })
+        
+    } catch (error) {
+        console.log(error);
+    }
+
+    
 }
 
 // formulario para crear una propiedad
