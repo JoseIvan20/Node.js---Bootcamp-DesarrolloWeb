@@ -8,6 +8,8 @@ import cookieParser from "cookie-parser";
 import usuarioRouter from "./routes/usuarioRoutes.js";
 // Mis propiedades
 import propiedadesRoutes from "./routes/propiedadesRoutes.js";
+// Importamos las otras vistas
+import appRoutes from "./routes/appRoutes.js";
 // Base de Datos
 import db from "./config/db.js";
 
@@ -39,6 +41,7 @@ server.set( 'views', './views' );
 server.use( express.static('public') )
 
 // Routing -> Mandamos a llamar la ruta
+server.use('/', appRoutes)
 server.use( '/auth', usuarioRouter )
 server.use( '/', propiedadesRoutes )
 
