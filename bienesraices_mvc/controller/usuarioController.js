@@ -57,7 +57,7 @@ const autenticarUsuario = async (req, res) => {
         return res.render('auth/login', {
             pagina: 'Iniciar Sesión',
             csrfToken: req.csrfToken(),
-            errores:[{msg: 'El Password en INCONRRECTO'}]
+            errores:[{msg: 'El Password es INCONRRECTO'}]
         })
     }
 
