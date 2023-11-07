@@ -1,3 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.leaflet-container a{
+
+    display: flex;
+    background-color: rgb(224 242 254);
+    color: rgb(7 89 133);
+    border-radius: 4px;
+    box-shadow: 2px 2px 2px rgba(68, 68, 68, 0.2);
+    justify-content: center;
+    text-transform: uppercase;
+    align-items: center;
+
+}

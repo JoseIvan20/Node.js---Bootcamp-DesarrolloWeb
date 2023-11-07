@@ -10,6 +10,8 @@ import usuarioRouter from "./routes/usuarioRoutes.js";
 import propiedadesRoutes from "./routes/propiedadesRoutes.js";
 // Importamos las otras vistas
 import appRoutes from "./routes/appRoutes.js";
+// Importa la api de rutas
+import apiRoutes from "./routes/apiRoutes.js";
 // Base de Datos
 import db from "./config/db.js";
 
@@ -44,6 +46,7 @@ server.use( express.static('public') )
 server.use('/', appRoutes)
 server.use( '/auth', usuarioRouter )
 server.use( '/', propiedadesRoutes )
+server.use('/api', apiRoutes)
 
 // Creamos el server o la app -> Levantamos el servidor
 const port = process.env.PORT || 3000;
