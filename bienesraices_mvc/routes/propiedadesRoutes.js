@@ -5,6 +5,8 @@ import { admin, crear, guardar, agregarImagen, almacenarImagen, editar, guardarC
 import protegerRuta from "../middleware/protegerRutas.js";
 // Importamos upload
 import upload from "../middleware/subirImagen.js";
+// Import de identificar usuario
+import identificarUsuario from "../middleware/identificarUsuario.js";
 
 
 const router = express.Router();
@@ -90,6 +92,7 @@ router.post('/propiedades/eliminar/:id',
 // Área pública
 router.get ('/propiedad/:id',
 
+    identificarUsuario,
     mostrarPropiedad
 
 )

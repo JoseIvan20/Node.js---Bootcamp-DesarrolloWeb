@@ -406,6 +406,8 @@ const mostrarPropiedad = async (req, res) => {
 
     const { id } = req.params;
 
+    console.log(req.usuario)
+
     // Comprobar que la propiedad exista
     const propiedad = await Propiedad.findByPk( id, { // Incluiremos Categoria, Precio, para mostrar sus datos de la propiedad
 
